@@ -111,27 +111,6 @@ fn run_single_test_no_exercise() {
 }
 
 #[test]
-fn reset_single_exercise() {
-    Command::cargo_bin("rustlings")
-        .unwrap()
-        .args(&["reset", "intro1"])
-        .assert()
-        .code(0);
-}
-
-#[test]
-fn reset_no_exercise() {
-    Command::cargo_bin("rustlings")
-        .unwrap()
-        .arg("reset")
-        .assert()
-        .code(1)
-        .stderr(predicates::str::contains(
-            "positional arguments not provided",
-        ));
-}
-
-#[test]
 fn get_hint_for_single_test() {
     Command::cargo_bin("rustlings")
         .unwrap()
@@ -147,7 +126,7 @@ fn all_exercises_require_confirmation() {
     for exercise in glob("exercises/**/*.rs").unwrap() {
         let path = exercise.unwrap();
         if path.file_name().unwrap() == "mod.rs" {
-            continue;
+            continue
         }
         let source = {
             let mut file = File::open(&path).unwrap();
@@ -197,7 +176,7 @@ fn run_single_test_success_with_output() {
         .current_dir("tests/fixture/success/")
         .assert()
         .code(0)
-        .stdout(predicates::str::contains("THIS TEST TOO SHALL PASS"));
+        .stdout(predicates::str::contains("THIS TEST TOO SHALL PAS"));
 }
 
 #[test]
@@ -208,7 +187,7 @@ fn run_single_test_success_without_output() {
         .current_dir("tests/fixture/success/")
         .assert()
         .code(0)
-        .stdout(predicates::str::contains("THIS TEST TOO SHALL PASS").not());
+        .stdout(predicates::str::contains("THIS TEST TOO SHALL PAS").not());
 }
 
 #[test]
