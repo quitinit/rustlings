@@ -13,7 +13,6 @@
 // Make me pass the tests!
 
 // Execute `rustlings hint hashmaps3` or use the `hint` watch subcommand for a hint.
-
 use std::collections::HashMap;
 
 // A structure to store team name and its goal details.
@@ -29,24 +28,18 @@ fn populate_score_table(
     team_2_score: u8,
 ) -> HashMap<String, Team> {
     // i dont't think this is a idiomatic solution, but it works
-    match scores.remove(team_name) {
-        Some(mut score) => {
-            //let new_score = score.goals_scored + team_1_score;
-            //let new_conceded = score.goals_conceded + team_2_score;
-            score.goals_scored += team_1_score;
-            score.goals_conceded += team_2_score;
-            scores.insert(team_name.to_string(), score);
-        }
-        None => {
-            let team = Team {
-                name: String::from(team_name),
-                goals_scored: team_1_score,
-                goals_conceded: team_2_score,
-            };
+    scores
+        .entry(team_name.to_string())
+        .and_modify(|item| {
+            item.goals_scored += team_1_score;
+            item.goals_conceded += team_2_score;
+        })
+        .or_insert(Team {
+            name: String::from(team_name),
+            goals_scored: team_1_score,
+            goals_conceded: team_2_score,
+        });
 
-            scores.insert(team_name.to_string(), team);
-        }
-    };
     scores
 }
 
