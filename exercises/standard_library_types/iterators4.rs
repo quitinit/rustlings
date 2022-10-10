@@ -1,8 +1,7 @@
 // iterators4.rs
 // Execute `rustlings hint iterators4` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
-
+use std::ops::Range;
 pub fn factorial(num: u64) -> u64 {
     // Complete this function to return the factorial of num
     // Do not use:
@@ -13,6 +12,15 @@ pub fn factorial(num: u64) -> u64 {
     // For an extra challenge, don't use:
     // - recursion
     // Execute `rustlings hint iterators4` for hints.
+
+    Range {
+        start: 1,
+        end: num + 1,
+    }
+    .into_iter()
+    .rev()
+    .reduce(|accum, item| accum * item)
+    .unwrap_or_else(|| 1)
 }
 
 #[cfg(test)]
